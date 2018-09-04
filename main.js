@@ -28,7 +28,7 @@ function verificarFicha(contenidoFicha, event) {
         $(event).addClass('ok');
         $(event).off('click');
         playOkSound();
-        if (jugando) {
+        if (jugando === true) {
             gameState.successfulMovements++;
             verificarVictoria();
         }
@@ -37,7 +37,7 @@ function verificarFicha(contenidoFicha, event) {
         gameState.movementLimit--;
         $(event).off('click');
         playErrorSound();
-        if (jugando) {
+        if (jugando === true) {
             $('h3').text('Movimientos Restantes: ' + gameState.movementLimit);
         }
         verificarVictoria();
@@ -46,8 +46,8 @@ function verificarFicha(contenidoFicha, event) {
 
 function verificarVictoria() {
     if (gameState.successfulMovements === gameState.successfulMovementsNeeded) {
-        alert('Ganaste');
         jugando = false;
+        alert('Ganaste');
         $('.grid div').click();
     } else if (gameState.movementLimit === 0) {
         alert('Perdiste');
@@ -63,7 +63,7 @@ function obtenerValor(filaFicha, columnaFicha) {
 }
 
 function generarBarcos() {
-    for (var i = 0; i <= gameState.successfulMovementsNeeded; i++) {
+    for (var i = 0; i <= gameState.successfulMovementsNeeded + 1; i++) {
         var columnaBarco = Math.floor(Math.random() * 10);
         var filaBarco = Math.floor(Math.random() * 10);
         gameState.masterGrid[filaBarco][columnaBarco] = 1;
@@ -73,16 +73,16 @@ function generarBarcos() {
 function getInitialState() {
     return {
         masterGrid: [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ],
         successfulMovements: 0,
         successfulMovementsNeeded: 4,
